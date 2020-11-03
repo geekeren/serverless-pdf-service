@@ -1,0 +1,21 @@
+service: serverless-pdf-service
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+
+functions:
+  hello:
+    handler: handler.handler
+    timeout: 120
+    events:
+      - http:
+          path: pdf
+          method: get
+resources:
+  Resources:
+    ApiGatewayRestApi:
+      Properties:
+        BinaryMediaTypes:
+          - "*/*"

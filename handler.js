@@ -8,6 +8,8 @@ exports.handler = async (event, context, callback) => {
   let browser = null;
 
   try {
+    await chromium.font('https://www.wfonts.com/download/data/2014/06/01/microsoft-yahei/chinese.msyh.ttf');
+    await chromium.font('https://ff.static.1001fonts.net/r/o/roboto.regular.ttf');
     browser = await chromium.puppeteer.launch({
       args: chromium.args,
       defaultViewport: chromium.defaultViewport,
@@ -34,6 +36,7 @@ exports.handler = async (event, context, callback) => {
     isBase64Encoded: true,
     headers: {
       'Content-Type': 'application/pdf',
+      'Content-disposition': 'inline; filename=\"demo.pdf\"',
     },
   });
 };

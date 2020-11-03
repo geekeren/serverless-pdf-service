@@ -1,6 +1,7 @@
 'use strict';
 
 const chromium = require('chrome-aws-lambda');
+const { get } = require('lodash');
 
 exports.handler = async (event, context, callback) => {
   let result = null;
@@ -16,7 +17,8 @@ exports.handler = async (event, context, callback) => {
     });
 
     let page = await browser.newPage();
-    await page.goto(event.queryStringParameters.url || 'https://www.google.com');
+    const url = get(event, 'queryStringParameters.url', 'https://www.google.com');
+    await page.goto(url, { waitUntil: 'networkidle0' });
     result = await page.pdf();
   } catch (error) {
     return callback(error);

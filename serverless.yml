@@ -4,13 +4,13 @@ frameworkVersion: '2'
 provider:
   name: aws
   runtime: nodejs12.x
+  timeout: 120
 package:
   include:
       - fonts/**
 functions:
   pdf-generator:
     handler: handler.handler
-    timeout: 120
     events:
       - http:
           path: pdf
